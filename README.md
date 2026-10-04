@@ -92,8 +92,12 @@ The baseline is maintained here, in `knowledge/baseline/`. See
 [AGENTS.md](AGENTS.md) for working on it.
 
 ```
-make check                          # format, vet, tests, bundle check
-make review REVIEWER=<your id>      # review this repository's knowledge
+make check                                      # format, vet, tests, bundle check
+make review REVIEWER=<your id>                  # review this repository's knowledge, with Go
+REVIEWER=<your id> docker compose up --build    # the same, with Docker only
 ```
+
+Here the review tool is built from source by `docker-compose.yml`, and the
+baseline is reviewed like every other concept.
 
 Licensed under Apache-2.0.

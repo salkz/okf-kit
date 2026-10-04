@@ -1,6 +1,6 @@
 # Review tool for this repository's own knowledge, built from source. Here
 # the baseline is reviewed too: this is where it is maintained.
-#   REVIEWER=<your id> docker compose -f docker-compose.review.yml up --build
+#   REVIEWER=<your id> docker compose up --build
 # then open http://<this machine>:8765. Stop it with Ctrl-C when done.
 services:
   okf-review:
