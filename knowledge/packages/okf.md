@@ -36,7 +36,8 @@ sources:
 * every footnote matches a `sources` id, and every source is cited;
 * every concept and folder is listed in its folder's `index.md` with the
   concept's own title and description;
-* `log.md` uses ISO dates, newest first;
+* `log.md` uses ISO dates, newest first; its links are not checked,
+  because an old entry may name a concept that was removed since;
 * `requests.json` is well-formed.[^check]
 
 # Limits

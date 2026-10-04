@@ -248,7 +248,8 @@ func (c *checker) checkLog(path string) {
 		c.errorf("%s: %v", name, err)
 		return
 	}
-	c.checkLinks(path, string(raw))
+	// Links in the log are not checked: it is history, and an entry may
+	// name a concept that was removed since.
 	var dates []string
 	for _, line := range strings.Split(string(raw), "\n") {
 		m := logDate.FindStringSubmatch(line)

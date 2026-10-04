@@ -151,6 +151,17 @@ func TestCheck(t *testing.T) {
 		t.Fatalf("a sound bundle has problems: %v, %v", problems, err)
 	}
 
+	// The log is history: an entry may link to a concept removed since.
+	withOldLog := writeBundle(t)
+	logFile := filepath.Join(withOldLog, "log.md")
+	raw, _ := os.ReadFile(logFile)
+	if err := os.WriteFile(logFile, append(raw, []byte("* **Creation**: [Gone](gone.md).\n")...), 0o664); err != nil {
+		t.Fatal(err)
+	}
+	if problems, err := Check(withOldLog); err != nil || len(problems) != 0 {
+		t.Errorf("a log entry about a removed concept is a problem: %v, %v", problems, err)
+	}
+
 	// Each case breaks the sound bundle in one way.
 	edit := func(rel, old, new string) func(*testing.T, string) {
 		return func(t *testing.T, root string) {
