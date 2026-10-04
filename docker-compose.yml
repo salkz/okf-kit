@@ -1,0 +1,14 @@
+# Review tool for this repository's own knowledge, built from source. Here
+# the baseline is reviewed too: this is where it is maintained.
+#   REVIEWER=<your id> docker compose up --build
+# then open http://<this machine>:8765. Stop it with Ctrl-C when done.
+services:
+  okf-review:
+    build: .
+    user: "${REVIEW_UID:-1000}:${REVIEW_GID:-1000}"
+    command: ["serve", "-reviewer", "${REVIEWER:?set REVIEWER to your id, e.g. REVIEWER=alice}", "-bundle", "/repo/knowledge"]
+    ports:
+      - "${REVIEW_PORT:-8765}:8765"
+    volumes:
+      - .:/repo:ro
+      - ./knowledge:/repo/knowledge

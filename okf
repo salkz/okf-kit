@@ -1,0 +1,7 @@
+#!/bin/sh
+# In this repository the tool runs from source, so the playbooks' "./okf"
+# commands work here as they do in a repository that uses the kit.
+set -e
+cd "$(dirname "$0")"
+case "$1" in check) shift; set -- check -upstream "$@" ;; esac
+exec go run ./cmd/okf "$@"
