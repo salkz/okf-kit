@@ -1,0 +1,33 @@
+name: ci
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version: stable
+      - name: Format
+        run: test -z "$(gofmt -l .)" || (gofmt -l . && exit 1)
+      - name: Vet
+        run: go vet ./...
+      - name: Test
+        run: go test ./...
+      - name: Check the knowledge bundle
+        run: go run ./cmd/okf check -upstream
+      - name: Build the image
+        run: docker build --build-arg VERSION=ci -t okf-kit:ci .
+      - name: Try the image on an empty repository
+        run: |
+          mkdir /tmp/try && cd /tmp/try
+          docker run --rm -u "$(id -u):$(id -g)" -v "$PWD":/repo okf-kit:ci init
+          docker run --rm -u "$(id -u):$(id -g)" -v "$PWD":/repo okf-kit:ci check
