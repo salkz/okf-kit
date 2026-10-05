@@ -5,6 +5,7 @@ description: The commands that must pass before every commit in this repository.
 tags: [workflow]
 status: stable
 generated: { by: claude-code/claude-fable-5-1, at: 2026-10-04T17:47:14Z }
+verified: { by: human:salkz, at: 2026-10-04T20:49:42Z }
 sources:
   - id: makefile
     resource: ../Makefile
